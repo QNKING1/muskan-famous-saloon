@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Muskan Famous Saloon — Beauty Salon in Shāhdādpur</title>
+<meta name="description" content="Muskan Famous Saloon, Janipura, Shāhdādpur. See services, find us on the map and book your appointment in one WhatsApp message." />
+
+<!--
+  DEMO PREVIEW — Muskan famous saloon (built for a sales demo, not the final site).
+  1) Type decision: Ladies beauty parlour / bridal & makeup (from category "Beauty salon" + feminine name). One reviewer appears male — confirm with owner.
+  2) Assumed offerings (not proven by data): all menu items are typical services and MUST be confirmed with the owner. No prices shown by design.
+  3) Unconfirmed: exact timings (none in sheet → clean fallback line), logo, photos, Maps URL (built a search link from name + plus code).
+-->
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234B3027'/%3E%3Cpath d='M32 10c11 0 19 7.6 19 18 0 12-10.5 22.5-19 29-8.5-6.5-19-17-19-29 0-10.4 8-18 19-18z' fill='none' stroke='%23D99A9A' stroke-width='2'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Georgia,serif' font-size='26' fill='%23FFF6EE'%3EM%3C/text%3E%3C/svg%3E" />
+<meta name="theme-color" content="#4B3027" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --mocha:#4B3027;
+    --ink:#2A1712;
+    --rose:#D99A9A;
+    --rose-soft:#EBC3BC;
+    --blush:#F6E3DC;
+    --cream:#FFF6EE;
+    --gold:#BE9A6B;
+    --paper:#FFFCF9;
+    --shadow:0 18px 40px -22px rgba(75,48,39,.55);
+    --radius:20px;
+    --pill:999px;
+    --wrap:1140px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    font-family:"Albert Sans",system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    font-size:16.5px;
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%;display:block}
+  a{color:inherit}
+  h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.08;margin:0;letter-spacing:-.01em}
+  p{margin:0}
+  .wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+    outline:3px solid var(--mocha);outline-offset:3px;border-radius:6px;
+  }
+
+  /* ---------- ribbon ---------- */
+  .ribbon{
+    background:var(--ink);color:var(--cream);
+    font-size:12.5px;letter-spacing:.06em;text-align:center;
+    padding:8px 14px;font-weight:500;
+  }
+  .ribbon b{color:var(--rose-soft);font-weight:600}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+    min-height:48px;padding:13px 24px;border-radius:var(--pill);
+    font-family:"Albert Sans",sans-serif;font-weight:600;font-size:16px;
+    text-decoration:none;border:1.5px solid transparent;cursor:pointer;
+    transition:transform .18s ease,background-color .18s ease,color .18s ease,box-shadow .18s ease;
+  }
+  .btn svg{width:19px;height:19px;flex:none}
+  .btn--wa{background:#1f7a52;color:#fff;box-shadow:var(--shadow)}
+  .btn--wa:hover{background:#166045;transform:translateY(-2px)}
+  .btn--ghost{background:transparent;color:var(--mocha);border-color:var(--mocha)}
+  .btn--ghost:hover{background:var(--mocha);color:var(--cream);transform:translateY(-2px)}
+  .btn--light{background:var(--cream);color:var(--mocha)}
+  .btn--light:hover{background:#fff;transform:translateY(-2px)}
+  .btn--outline-light{border-color:rgba(255,246,238,.6);color:var(--cream);background:transparent}
+  .btn--outline-light:hover{background:var(--cream);color:var(--mocha)}
+
+  /* ---------- logo lockup ---------- */
+  .lock{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .lock__mark{width:46px;height:46px;flex:none;color:var(--mocha)}
+  .lock__text{display:flex;flex-direction:column;line-height:1}
+  .lock__name{font-family:"Fraunces",serif;font-weight:600;font-size:19px;letter-spacing:.005em}
+  .lock__sub{font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--mocha);opacity:.72;margin-top:4px}
+  .lock--light .lock__mark{color:var(--rose)}
+  .lock--light .lock__name{color:var(--cream)}
+  .lock--light .lock__sub{color:var(--rose-soft);opacity:.9}
+
+  /* ---------- header ---------- */
+  header.site{
+    position:sticky;top:0;z-index:60;
+    background:rgba(255,246,238,.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(75,48,39,.12);
+  }
+  .site__in{display:flex;align-items:center;justify-content:space-between;gap:14px;height:70px}
+  .site .btn{padding:11px 18px;font-size:15px;min-height:44px}
+  .site .lock__text{display:none}
+  @media(min-width:420px){.site .lock__text{display:flex}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:44px 0 40px;overflow:hidden}
+  .hero__bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+  .hero__in{position:relative;z-index:1;display:grid;gap:38px}
+  .hero__rating{
+    display:inline-flex;align-items:center;gap:9px;
+    background:var(--paper);border:1px solid rgba(75,48,39,.14);
+    border-radius:var(--pill);padding:7px 16px 7px 12px;box-shadow:var(--shadow);
+    font-size:14.5px;font-weight:500;
+  }
+  .hero__rating .stars{color:#C98A2E;letter-spacing:.06em;font-size:15px}
+  .hero__rating b{font-weight:700}
+  .hero__rating span.dim{color:var(--mocha);opacity:.7}
+  .hero h1{font-size:clamp(2.5rem,10.5vw,4.4rem);margin:18px 0 0}
+  .hero h1 .ln{display:block}
+  .hero__lead{margin-top:16px;font-size:clamp(1.05rem,4.3vw,1.28rem);max-width:33ch;color:#4a332b}
+  .urdu{
+    font-family:"Noto Nastaliq Urdu",serif;
+    direction:rtl;text-align:right;
+    font-size:clamp(1.15rem,5.4vw,1.6rem);
+    line-height:2.35;padding:6px 2px;margin-top:14px;
+    color:var(--mocha);
+  }
+  .hero__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+  .hero__city{
+    display:inline-flex;align-items:center;gap:8px;margin-top:22px;
+    font-size:14px;color:var(--mocha);font-weight:500;opacity:.85;
+  }
+  .hero__city svg{width:16px;height:16px}
+
+  /* ---------- phone mockup ---------- */
+  .phone{
+    position:relative;width:min(320px,90%);margin:0 auto;
+    background:#221712;border-radius:38px;padding:12px;
+    box-shadow:0 40px 70px -34px rgba(42,23,18,.75);
+    cursor:pointer;
+  }
+  .phone__screen{background:#EFE7DF;border-radius:28px;overflow:hidden;position:relative}
+  .phone__notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:92px;height:7px;border-radius:999px;background:#3a2a22;z-index:3}
+  .chat__head{background:#4B3027;color:var(--cream);padding:26px 15px 13px;display:flex;align-items:center;gap:10px}
+  .chat__av{width:34px;height:34px;border-radius:50%;background:var(--rose);color:var(--mocha);display:grid;place-items:center;font-family:"Fraunces",serif;font-weight:700;flex:none}
+  .chat__head strong{display:block;font-size:14px;font-weight:600;font-family:"Albert Sans",sans-serif}
+  .chat__head small{font-size:11px;color:var(--rose-soft)}
+  .chat__body{padding:16px 13px 20px;display:flex;flex-direction:column;gap:9px;min-height:250px;background-image:radial-gradient(rgba(75,48,39,.06) 1px,transparent 1px);background-size:16px 16px}
+  .bubble{
+    max-width:86%;padding:9px 13px;border-radius:15px;font-size:13.5px;line-height:1.5;
+    opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease;
+  }
+  .bubble.is-on{opacity:1;transform:none}
+  .bubble--out{align-self:flex-end;background:#D3F4D8;border-bottom-right-radius:5px;color:#1c2b21}
+  .bubble--in{align-self:flex-start;background:#fff;border-bottom-left-radius:5px;color:#33261f}
+  .bubble--typing{align-self:flex-start;background:#fff;display:flex;gap:5px;padding:13px}
+  .bubble--typing i{width:7px;height:7px;border-radius:50%;background:#b6a79c;animation:blink 1.2s infinite}
+  .bubble--typing i:nth-child(2){animation-delay:.2s}
+  .bubble--typing i:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+  .phone__tap{
+    position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+    background:rgba(34,23,18,.82);color:var(--cream);font-size:11.5px;
+    padding:6px 13px;border-radius:999px;white-space:nowrap;
+  }
+  .phone__badge{
+    position:absolute;top:26px;right:-10px;background:var(--rose);color:var(--mocha);
+    font-size:11.5px;font-weight:600;padding:7px 13px;border-radius:999px;transform:rotate(4deg);
+    box-shadow:var(--shadow);
+  }
+
+  /* ---------- marquee ---------- */
+  .marquee{background:var(--mocha);color:var(--cream);padding:16px 0;overflow:hidden;margin-top:8px}
+  .marquee__track{display:flex;gap:0;width:max-content;animation:slide 42s linear infinite}
+  .marquee__track span{display:inline-flex;align-items:center;font-family:"Fraunces",serif;font-size:clamp(1.05rem,4.4vw,1.4rem);padding:0 26px;white-space:nowrap}
+  .marquee__track span::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--rose);margin-left:26px;flex:none}
+  @keyframes slide{to{transform:translateX(-50%)}}
+
+  /* ---------- section rhythm ---------- */
+  section{padding:64px 0}
+  .sec-head{margin-bottom:34px}
+  .sec-head h2{font-size:clamp(2rem,8vw,3.1rem)}
+  .sec-head p{margin-top:12px;max-width:52ch;color:#4a332b}
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--mocha);opacity:.65;font-weight:600}
+
+  /* ---------- menu ---------- */
+  .menu{background:var(--paper)}
+  .menu__card{
+    background:var(--cream);border:1px solid rgba(75,48,39,.14);border-radius:var(--radius);
+    padding:clamp(22px,5vw,44px);box-shadow:var(--shadow);
+  }
+  .menu__top{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between;
+    padding-bottom:20px;border-bottom:2px solid var(--mocha);margin-bottom:8px}
+  .menu__top h2{font-size:clamp(1.7rem,6.5vw,2.4rem)}
+  .menu__price{font-size:13.5px;font-weight:600;color:var(--mocha);background:var(--blush);padding:7px 14px;border-radius:var(--pill)}
+  .group{padding-top:26px}
+  .group h3{font-size:1.35rem;color:var(--mocha);display:flex;align-items:center;gap:12px}
+  .group h3::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--rose),transparent)}
+  .mrow{display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px 12px;padding:11px 0;border-bottom:1px dotted var(--rose-soft)}
+  .mrow__name{font-weight:600;font-size:16.5px}
+  .mrow__desc{display:block;font-size:14px;color:#6b5047;font-weight:400;margin-top:2px;max-width:44ch}
+  .mrow__lead{display:none}
+  .mrow__book{
+    font-size:13.5px;font-weight:600;color:var(--mocha);text-decoration:none;
+    border:1.5px solid var(--rose);border-radius:var(--pill);padding:7px 16px;white-space:nowrap;
+    transition:background-color .18s ease,color .18s ease;
+  }
+  .mrow__book:hover{background:var(--mocha);color:var(--cream);border-color:var(--mocha)}
+  @media(min-width:720px){
+    .mrow{grid-template-columns:auto 1fr auto;align-items:center}
+    .mrow__name{white-space:nowrap}
+    .mrow__desc{display:inline;margin:0 0 0 .6em;font-size:14px}
+    .mrow__lead{display:block;border-bottom:1.5px dotted var(--rose);height:.7em}
+  }
+
+  /* ---------- bridal band ---------- */
+  .band{background:var(--mocha);color:var(--cream);position:relative;overflow:hidden}
+  .band__in{position:relative;z-index:1;display:grid;gap:26px;align-items:center}
+  .band h2{font-size:clamp(2rem,8.5vw,3.4rem);color:var(--cream)}
+  .band p{margin-top:16px;max-width:46ch;color:var(--rose-soft)}
+  .band__art{color:var(--rose);opacity:.9;justify-self:center;width:min(300px,80%)}
+  @media(min-width:820px){.band__in{grid-template-columns:1.3fr .7fr}}
+
+  /* ---------- proof ---------- */
+  .proof{background:var(--blush)}
+  .proof__in{display:grid;gap:28px;align-items:center}
+  .proof__badge{text-align:center;background:var(--paper);border-radius:var(--radius);padding:28px 20px;box-shadow:var(--shadow)}
+  .proof__badge .big{font-family:"Fraunces",serif;font-size:3.6rem;line-height:1;color:var(--mocha)}
+  .proof__badge .stars{color:#C98A2E;font-size:1.4rem;letter-spacing:.1em;margin:8px 0 4px}
+  .proof__badge .sub{font-size:14px;color:#6b5047}
+  blockquote{margin:0}
+  blockquote p{font-family:"Fraunces",serif;font-size:clamp(1.4rem,5.5vw,2rem);line-height:1.3;color:var(--mocha)}
+  blockquote footer{margin-top:14px;font-size:14.5px;font-weight:600;color:#6b5047}
+  @media(min-width:760px){.proof__in{grid-template-columns:260px 1fr}}
+
+  /* ---------- steps ---------- */
+  .steps{list-style:none;margin:0;padding:0;display:grid;gap:20px;counter-reset:s}
+  .steps li{background:var(--paper);border:1px solid rgba(75,48,39,.12);border-radius:var(--radius);padding:26px 24px;position:relative}
+  .steps .num{
+    font-family:"Fraunces",serif;font-size:1.1rem;font-weight:700;color:var(--cream);
+    background:var(--mocha);width:42px;height:42px;border-radius:50%;display:grid;place-items:center;margin-bottom:14px;
+  }
+  .steps h3{font-size:1.3rem;color:var(--mocha)}
+  .steps p{margin-top:8px;color:#5b4038;font-size:15.5px}
+  @media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+
+  /* ---------- form ---------- */
+  .book{background:var(--ink);color:var(--cream)}
+  .book .sec-head p{color:var(--rose-soft)}
+  .book h2{color:var(--cream)}
+  form{background:rgba(255,246,238,.06);border:1px solid rgba(255,246,238,.18);border-radius:var(--radius);padding:clamp(20px,5vw,36px)}
+  .grid2{display:grid;gap:16px}
+  @media(min-width:640px){.grid2{grid-template-columns:1fr 1fr}}
+  .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+  .field label{font-size:14px;font-weight:600;color:var(--rose-soft)}
+  .field input,.field select,.field textarea{
+    font-family:inherit;font-size:16px;padding:13px 14px;border-radius:14px;
+    border:1.5px solid rgba(255,246,238,.25);background:rgba(255,246,238,.95);color:var(--ink);
+  }
+  .field textarea{min-height:96px;resize:vertical}
+  .field .err{color:#ffb4a6;font-size:13px;display:none}
+  .field.invalid input,.field.invalid select,.field.invalid textarea{border-color:#ffb4a6}
+  .field.invalid .err{display:block}
+  form .btn{width:100%;margin-top:6px}
+  .formnote{font-size:13px;color:var(--rose-soft);margin-top:14px;text-align:center}
+
+  /* ---------- visit ---------- */
+  .visit__grid{display:grid;gap:34px}
+  .visit__addr{font-family:"Fraunces",serif;font-size:clamp(1.5rem,6vw,2.3rem);line-height:1.22;color:var(--mocha)}
+  .visit__meta{margin-top:20px;display:grid;gap:12px;font-size:15.5px}
+  .visit__meta div{display:flex;gap:11px;align-items:flex-start}
+  .visit__meta svg{width:19px;height:19px;color:var(--mocha);flex:none;margin-top:3px}
+  .visit__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+  .mapart{background:var(--blush);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  @media(min-width:820px){.visit__grid{grid-template-columns:1.05fr .95fr;align-items:center}}
+
+  /* ---------- footer ---------- */
+  footer.site{border-top:1px solid rgba(75,48,39,.14);padding:44px 0 90px;background:var(--cream)}
+  .foot__in{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start}
+  .foot__links{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:15px;font-weight:500}
+  .foot__links a{text-decoration:none;border-bottom:1.5px solid transparent;padding-bottom:2px}
+  .foot__links a:hover{border-color:var(--mocha)}
+  .foot__legal{margin-top:26px;font-size:13px;color:#7a6058;max-width:60ch}
+
+  /* ---------- sticky wa ---------- */
+  .float{
+    position:fixed;right:16px;bottom:16px;z-index:70;
+    display:inline-flex;align-items:center;gap:10px;
+    background:#1f7a52;color:#fff;text-decoration:none;font-weight:600;font-size:15px;
+    padding:14px 20px;border-radius:999px;box-shadow:0 16px 34px -12px rgba(31,122,82,.7);
+    transition:transform .18s ease;
+  }
+  .float:hover{transform:translateY(-3px)}
+  .float svg{width:22px;height:22px}
+  .float span{display:none}
+  @media(min-width:520px){.float span{display:inline}}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+    .marquee__track{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="ribbon">Demo preview — made for <b>Muskan Famous Saloon</b></div>
+
+<header class="site">
+  <div class="wrap site__in">
+    <a class="lock" href="#top" aria-label="Muskan Famous Saloon — home">
+      <!-- monogram lockup -->
+      <svg class="lock__mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
+        <path d="M32 5c13 0 22 9 22 21 0 14-12 26-22 33C22 52 10 40 10 26 10 14 19 5 32 5z" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M32 11c9.5 0 16 6.6 16 15.6C48 39 38.6 48.8 32 54.4 25.4 48.8 16 39 16 26.6 16 17.6 22.5 11 32 11z" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
+        <text x="32" y="39" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-weight="600" font-size="25" fill="currentColor">M</text>
+        <circle cx="32" cy="8" r="2.4" fill="currentColor"/>
+        <path d="M12 30c-3 1-5 3-6 6 3 0 6-2 7-5M52 30c3 1 5 3 6 6-3 0-6-2-7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span class="lock__text">
+        <span class="lock__name">Muskan Famous Saloon</span>
+        <span class="lock__sub">Shāhdādpur</span>
+      </span>
+    </a>
+    <a class="btn btn--wa" href="https://wa.me/923213601564?text=Assalam%20o%20Alaikum%2C%20I%20want%20to%20book%20an%20appointment%20at%20Muskan%20Famous%20Saloon." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-1-.3-2.5-1-3.8-2.3-1.4-1.4-2-2.6-2.3-3.3-.3-.8-.2-1.4 0-1.8.2-.4.6-.9 1-1.1.2-.1.4-.1.5-.1h.4c.2 0 .4 0 .5.4.2.4.6 1.4.7 1.5.1.1.1.3 0 .4l-.3.5c-.1.2-.3.3-.1.6.1.3.6 1 1.2 1.6.8.7 1.4 1 1.7 1.1.2.1.4.1.5-.1.2-.2.6-.7.8-.9.2-.2.3-.2.5-.1.2.1 1.2.6 1.4.7.2.1.4.2.4.3.1.2.1.7-.1 1.3z"/></svg>
+      Book on WhatsApp
+    </a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%">
+        <defs>
+          <radialGradient id="g1" cx="20%" cy="15%" r="60%">
+            <stop offset="0" stop-color="#F6E3DC"/><stop offset="1" stop-color="#FFF6EE" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="1200" height="600" fill="url(#g1)"/>
+        <g fill="none" stroke="#D99A9A" stroke-width="1.2" opacity=".5">
+          <circle cx="980" cy="140" r="120"/><circle cx="980" cy="140" r="92"/>
+          <path d="M980 20v-30M980 260v30M860 140h-30M1100 140h30"/>
+        </g>
+        <g fill="none" stroke="#BE9A6B" stroke-width="1.4" opacity=".45">
+          <path d="M120 520c40-30 80-30 120 0s80 30 120 0"/>
+          <path d="M100 560c40-30 80-30 120 0s80 30 120 0"/>
+        </g>
+        <g fill="#D99A9A" opacity=".35">
+          <circle cx="150" cy="120" r="4"/><circle cx="184" cy="96" r="4"/><circle cx="210" cy="140" r="4"/>
+          <circle cx="1100" cy="470" r="4"/><circle cx="1140" cy="440" r="4"/><circle cx="1064" cy="450" r="4"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <span class="hero__rating">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <b>5.0</b> <span class="dim">(1 Google review)</span>
+        </span>
+
+        <h1>
+          <span class="ln">Muskan Famous</span>
+          <span class="ln">Saloon</span>
+        </h1>
+
+        <p class="hero__lead">Your next look in Shāhdādpur — see our services and timings, and book your visit in one WhatsApp message.</p>
+
+        <p class="urdu" lang="ur" dir="rtl">مسکان — آپ کی مسکراہٹ کے لیے</p>
+
+        <div class="hero__cta">
+          <a class="btn btn--wa" href="https://wa.me/923213601564?text=Assalam%20o%20Alaikum%2C%20I%20want%20to%20book%20an%20appointment%20at%20Muskan%20Famous%20Saloon." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-1-.3-2.5-1-3.8-2.3-1.4-1.4-2-2.6-2.3-3.3-.3-.8-.2-1.4 0-1.8.2-.4.6-.9 1-1.1.2-.1.4-.1.5-.1h.4c.2 0 .4 0 .5.4.2.4.6 1.4.7 1.5.1.1.1.3 0 .4l-.3.5c-.1.2-.3.3-.1.6.1.3.6 1 1.2 1.6.8.7 1.4 1 1.7 1.1.2.1.4.1.5-.1.2-.2.6-.7.8-.9.2-.2.3-.2.5-.1.2.1 1.2.6 1.4.7.2.1.4.2.4.3.1.2.1.7-.1 1.3z"/></svg>
+            Book on WhatsApp
+          </a>
+          <a class="btn btn--ghost" href="tel:+923213601564">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6.6 3h-2A1.6 1.6 0 0 0 3 4.7C3 13.1 10.9 21 19.3 21A1.6 1.6 0 0 0 21 19.4v-2a1.6 1.6 0 0 0-1.3-1.6l-2.6-.5a1.6 1.6 0 0 0-1.7.9l-.6 1.3a13.8 13.8 0 0 1-6.3-6.3l1.3-.6a1.6 1.6 0 0 0 .9-1.7L10 4.3A1.6 1.6 0 0 0 6.6 3z"/></svg>
+            Call now
+          </a>
+        </div>
+
+        <span class="hero__city">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          Janipura, Shāhdādpur — near Bhetai Medical Center Street
+        </span>
+      </div>
+
+      <!-- phone mockup: chat plays once -->
+      <div class="hero__phone">
+        <div class="phone" id="phone" role="button" tabindex="0" aria-label="Open WhatsApp to book at Muskan Famous Saloon" data-wa="https://wa.me/923213601564?text=Assalam%20o%20Alaikum%2C%20I%20want%20to%20book%20an%20appointment%20at%20Muskan%20Famous%20Saloon.">
+          <span class="phone__badge">Booking on WhatsApp</span>
+          <div class="phone__notch" aria-hidden="true"></div>
+          <div class="phone__screen">
+            <div class="chat__head">
+              <span class="chat__av" aria-hidden="true">M</span>
+              <div><strong>Muskan Famous Saloon</strong><small>Business account</small></div>
+            </div>
+            <div class="chat__body" id="chatBody">
+              <div class="bubble bubble--out" data-step="1">Assalam o Alaikum, I want to book an appointment at Muskan Famous Saloon.</div>
+              <div class="bubble bubble--typing" data-step="2" aria-label="Typing"><i></i><i></i><i></i></div>
+              <div class="bubble bubble--in" data-step="3">Assalam o Alaikum! We have received your request.</div>
+            </div>
+          </div>
+          <span class="phone__tap">Tap to open WhatsApp</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <div class="marquee" aria-label="Services">
+    <div class="marquee__track" id="track">
+      <span>Haircut &amp; Styling</span><span>Facial</span><span>Bridal Makeup</span><span>Threading</span><span>Mehendi</span><span>Waxing</span><span>Manicure</span><span>Pedicure</span><span>Hair Color</span><span>Party Makeup</span>
+    </div>
+  </div>
+
+  <!-- ===== MENU ===== -->
+  <section class="menu" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Services</span>
+        <h2>Our salon menu</h2>
+        <p>Tell us what you would like and we will confirm everything with you on WhatsApp.</p>
+      </div>
+
+      <div class="menu__card">
+        <div class="menu__top">
+          <h2>Muskan Famous Saloon</h2>
+          <span class="menu__price">Prices on WhatsApp</span>
+        </div>
+
+        <div class="group">
+          <h3>Hair</h3>
+          <div class="mrow"><div><span class="mrow__name">Haircut &amp; Styling</span><span class="mrow__desc">Wash, cut and a neat finish</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Haircut and Styling">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Hair Color</span><span class="mrow__desc">Global color and highlights</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Hair Color">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Blow Dry &amp; Ironing</span><span class="mrow__desc">Straight, curls or waves</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Blow Dry and Ironing">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Hair Treatment</span><span class="mrow__desc">Deep conditioning care</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Hair Treatment">Book</a></div>
+        </div>
+
+        <div class="group">
+          <h3>Skin &amp; Facials</h3>
+          <div class="mrow"><div><span class="mrow__name">Glow Facial</span><span class="mrow__desc">Cleanse, massage and mask</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Glow Facial">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Face Clean-up &amp; Scrub</span><span class="mrow__desc">Steam, scrub and fresh finish</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Face Clean-up and Scrub">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Bleach &amp; D-Tan</span><span class="mrow__desc">Face and neck</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Bleach and D-Tan">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Face Massage</span><span class="mrow__desc">Relaxing facial massage</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Face Massage">Book</a></div>
+        </div>
+
+        <div class="group">
+          <h3>Makeup &amp; Bridal</h3>
+          <div class="mrow"><div><span class="mrow__name">Bridal Makeup</span><span class="mrow__desc">Full bridal look with hair and draping</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Bridal Makeup">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Party &amp; Event Makeup</span><span class="mrow__desc">For weddings, dinners and events</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Party and Event Makeup">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Engagement Makeup</span><span class="mrow__desc">Soft look for your special day</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Engagement Makeup">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Hair &amp; Makeup Package</span><span class="mrow__desc">Hair styling with your makeup look</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Hair and Makeup Package">Book</a></div>
+        </div>
+
+        <div class="group">
+          <h3>Threading, Waxing, Hands &amp; Feet</h3>
+          <div class="mrow"><div><span class="mrow__name">Threading</span><span class="mrow__desc">Eyebrows and face</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Threading">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Waxing</span><span class="mrow__desc">Arms and legs</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Waxing">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Manicure</span><span class="mrow__desc">Shaping, cuticle care and polish</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Manicure">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Pedicure</span><span class="mrow__desc">Soak, scrub and polish</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Pedicure">Book</a></div>
+        </div>
+
+        <div class="group">
+          <h3>Mehendi</h3>
+          <div class="mrow"><div><span class="mrow__name">Bridal Mehendi</span><span class="mrow__desc">Detailed design for brides</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Bridal Mehendi">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Hand &amp; Feet Mehendi</span><span class="mrow__desc">Front and back designs</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Hand and Feet Mehendi">Book</a></div>
+          <div class="mrow"><div><span class="mrow__name">Simple Design Mehendi</span><span class="mrow__desc">Quick design for any occasion</span></div><span class="mrow__lead" aria-hidden="true"></span><a class="mrow__book" href="https://wa.me/923213601564" data-service="Simple Design Mehendi">Book</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRIDAL BAND ===== -->
+  <section class="band">
+    <div class="wrap band__in">
+      <div>
+        <h2>Bridal &amp; party looks</h2>
+        <p>Planning a wedding, mehndi or a family event in Shāhdādpur? Message us with your date and we will discuss the look, the timing and what suits your day.</p>
+        <div class="hero__cta">
+          <a class="btn btn--light" href="https://wa.me/923213601564?text=Assalam%20o%20Alaikum%2C%20I%20would%20like%20to%20ask%20about%20bridal%20dates%20at%20Muskan%20Famous%20Saloon." target="_blank" rel="noopener">Ask about bridal dates on WhatsApp</a>
+        </div>
+      </div>
+      <div class="band__art" aria-hidden="true">
+        <svg viewBox="0 0 300 300" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="150" cy="150" r="118" opacity=".5"/>
+          <circle cx="150" cy="150" r="96" opacity=".3"/>
+          <path d="M150 60c26 22 40 46 40 74s-18 52-40 66c-22-14-40-38-40-66s14-52 40-74z"/>
+          <path d="M150 60v140" opacity=".5"/>
+          <path d="M110 134c-22-4-40 8-46 30 22 4 40-8 46-30zM190 134c22-4 40 8 46 30-22 4-40-8-46-30z" opacity=".7"/>
+          <g stroke="#D99A9A">
+            <circle cx="150" cy="46" r="3"/><circle cx="150" cy="254" r="3"/>
+            <circle cx="46" cy="150" r="3"/><circle cx="254" cy="150" r="3"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROOF ===== -->
+  <section class="proof">
+    <div class="wrap proof__in">
+      <div class="proof__badge">
+        <div class="big">5.0</div>
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <div class="sub">Rated on Google · 1 review</div>
+      </div>
+      <blockquote>
+        <p>“Excellent 👌”</p>
+        <footer>— Mahad, Google review</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ===== HOW BOOKING WORKS ===== -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>How booking works</h2>
+        <p>Three short steps, all on WhatsApp.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <div class="num">1</div>
+          <h3>Message us on WhatsApp</h3>
+          <p>Tap any button on this page and your message is ready to send.</p>
+        </li>
+        <li>
+          <div class="num">2</div>
+          <h3>Choose service and time</h3>
+          <p>Tell us the service and the day and time that suit you.</p>
+        </li>
+        <li>
+          <div class="num">3</div>
+          <h3>Get your confirmation</h3>
+          <p>We reply on WhatsApp to confirm your appointment.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== BOOKING FORM ===== -->
+  <section class="book" id="book">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Request an appointment</h2>
+        <p>Fill this in and it opens WhatsApp with your details ready to send.</p>
+      </div>
+
+      <form id="bookForm" novalidate>
+        <div class="grid2">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="e.g. Ayesha" required />
+            <span class="err">Please enter your name.</span>
+          </div>
+          <div class="field">
+            <label for="service">Service</label>
+            <select id="service" name="service" required>
+              <option value="">Choose a service</option>
+              <option>Haircut &amp; Styling</option>
+              <option>Hair Color</option>
+              <option>Blow Dry &amp; Ironing</option>
+              <option>Hair Treatment</option>
+              <option>Glow Facial</option>
+              <option>Face Clean-up &amp; Scrub</option>
+              <option>Bleach &amp; D-Tan</option>
+              <option>Face Massage</option>
+              <option>Bridal Makeup</option>
+              <option>Party &amp; Event Makeup</option>
+              <option>Engagement Makeup</option>
+              <option>Hair &amp; Makeup Package</option>
+              <option>Threading</option>
+              <option>Waxing</option>
+              <option>Manicure</option>
+              <option>Pedicure</option>
+              <option>Bridal Mehendi</option>
+              <option>Hand &amp; Feet Mehendi</option>
+              <option>Simple Design Mehendi</option>
+            </select>
+            <span class="err">Please choose a service.</span>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="day">Preferred day</label>
+            <input id="day" name="day" type="text" placeholder="e.g. Friday" required />
+            <span class="err">Please add a preferred day.</span>
+          </div>
+          <div class="field">
+            <label for="time">Preferred time</label>
+            <input id="time" name="time" type="text" placeholder="e.g. Evening, around 6 pm" required />
+            <span class="err">Please add a preferred time.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="notes">Notes (optional)</label>
+          <textarea id="notes" name="notes" placeholder="Anything we should know?"></textarea>
+        </div>
+        <button class="btn btn--wa" type="submit">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-1-.3-2.5-1-3.8-2.3-1.4-1.4-2-2.6-2.3-3.3-.3-.8-.2-1.4 0-1.8.2-.4.6-.9 1-1.1.2-.1.4-.1.5-.1h.4c.2 0 .4 0 .5.4.2.4.6 1.4.7 1.5.1.1.1.3 0 .4l-.3.5c-.1.2-.3.3-.1.6.1.3.6 1 1.2 1.6.8.7 1.4 1 1.7 1.1.2.1.4.1.5-.1.2-.2.6-.7.8-.9.2-.2.3-.2.5-.1.2.1 1.2.6 1.4.7.2.1.4.2.4.3.1.2.1.7-.1 1.3z"/></svg>
+          Send on WhatsApp
+        </button>
+        <p class="formnote">No account, no waiting — it opens WhatsApp with your message.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== VISIT ===== -->
+  <section id="visit">
+    <div class="wrap visit__grid">
+      <div>
+        <h2 class="visit__addr">Near Bhetai Medical Center Street, Janipura,<br>Shāhdādpur 68030</h2>
+        <div class="visit__meta">
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            <span>Plus code: <b>WJF8+VC</b> Shāhdādpur</span>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span>Message us on WhatsApp for today's timings</span>
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M6.6 3h-2A1.6 1.6 0 0 0 3 4.7C3 13.1 10.9 21 19.3 21A1.6 1.6 0 0 0 21 19.4v-2a1.6 1.6 0 0 0-1.3-1.6l-2.6-.5a1.6 1.6 0 0 0-1.7.9l-.6 1.3a13.8 13.8 0 0 1-6.3-6.3l1.3-.6a1.6 1.6 0 0 0 .9-1.7L10 4.3A1.6 1.6 0 0 0 6.6 3z"/></svg>
+            <a href="tel:+923213601564">+92 321 3601564</a>
+          </div>
+        </div>
+        <div class="visit__cta">
+          <a class="btn btn--wa" href="https://www.google.com/maps/search/?api=1&amp;query=Muskan%20famous%20saloon%20WJF8%2BVC%20Shahdadpur" target="_blank" rel="noopener">Open in Google Maps</a>
+          <a class="btn btn--ghost" href="tel:+923213601564">Call now</a>
+        </div>
+      </div>
+
+      <div class="mapart" aria-hidden="true">
+        <svg viewBox="0 0 600 460" style="width:100%;height:auto">
+          <rect width="600" height="460" fill="#F6E3DC"/>
+          <g stroke="#EBC3BC" stroke-width="22" stroke-linecap="round">
+            <path d="M-20 120h640"/><path d="M-20 320h640"/>
+            <path d="M150 -20v500"/><path d="M430 -20v500"/>
+          </g>
+          <g stroke="#FFF6EE" stroke-width="3" stroke-dasharray="10 12">
+            <path d="M-20 120h640"/><path d="M-20 320h640"/><path d="M150 -20v500"/><path d="M430 -20v500"/>
+          </g>
+          <g fill="#D99A9A" opacity=".55">
+            <rect x="40" y="160" width="80" height="60" rx="8"/><rect x="470" y="160" width="90" height="60" rx="8"/>
+            <rect x="40" y="360" width="80" height="70" rx="8"/><rect x="200" y="360" width="90" height="70" rx="8"/>
+            <rect x="200" y="30" width="90" height="60" rx="8"/><rect x="470" y="30" width="90" height="60" rx="8"/>
+          </g>
+          <path d="M300 130c34 0 60 26 60 60 0 42-36 82-60 104-24-22-60-62-60-104 0-34 26-60 60-60z" fill="#4B3027"/>
+          <circle cx="300" cy="190" r="22" fill="#D99A9A"/>
+          <circle cx="300" cy="190" r="9" fill="#4B3027"/>
+          <text x="300" y="360" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="26" fill="#4B3027">Muskan Famous Saloon</text>
+          <text x="300" y="388" text-anchor="middle" font-family="Albert Sans,sans-serif" font-size="15" fill="#6b5047">Janipura · Shāhdādpur</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot__in">
+      <div>
+        <a class="lock" href="#top" aria-label="Muskan Famous Saloon — home">
+          <svg class="lock__mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
+            <path d="M32 5c13 0 22 9 22 21 0 14-12 26-22 33C22 52 10 40 10 26 10 14 19 5 32 5z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <text x="32" y="39" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-weight="600" font-size="25" fill="currentColor">M</text>
+            <circle cx="32" cy="8" r="2.4" fill="currentColor"/>
+          </svg>
+          <span class="lock__text">
+            <span class="lock__name">Muskan Famous Saloon</span>
+            <span class="lock__sub">Shāhdādpur</span>
+          </span>
+        </a>
+      </div>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="https://wa.me/923213601564?text=Assalam%20o%20Alaikum%2C%20I%20want%20to%20book%20an%20appointment%20at%20Muskan%20Famous%20Saloon." target="_blank" rel="noopener">WhatsApp</a>
+        <a href="tel:+923213601564">+92 321 3601564</a>
+        <a href="#services">Services</a>
+        <a href="#visit">Visit us</a>
+      </nav>
+    </div>
+    <p class="foot__legal">Demo preview. Final photos, services and timings will be set together with you.</p>
+  </div>
+</footer>
+
+<a class="float" href="https://wa.me/923213601564?text=Assalam%20o%20Alaikum%2C%20I%20saw%20your%20website%20demo%20for%20Muskan%20famous%20saloon%20and%20would%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener" aria-label="Book on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-1-.3-2.5-1-3.8-2.3-1.4-1.4-2-2.6-2.3-3.3-.3-.8-.2-1.4 0-1.8.2-.4.6-.9 1-1.1.2-.1.4-.1.5-.1h.4c.2 0 .4 0 .5.4.2.4.6 1.4.7 1.5.1.1.1.3 0 .4l-.3.5c-.1.2-.3.3-.1.6.1.3.6 1 1.2 1.6.8.7 1.4 1 1.7 1.1.2.1.4.1.5-.1.2-.2.6-.7.8-.9.2-.2.3-.2.5-.1.2.1 1.2.6 1.4.7.2.1.4.2.4.3.1.2.1.7-.1 1.3z"/></svg>
+  <span>Book now</span>
+</a>
+
+<script>
+(function(){
+  "use strict";
+  var WA = "https://wa.me/923213601564";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* duplicate marquee content for a seamless loop */
+  var track = document.getElementById("track");
+  if (track) { track.innerHTML += track.innerHTML; }
+
+  /* ---------- hero chat plays once ---------- */
+  var steps = document.querySelectorAll("#chatBody .bubble");
+  function showAll(){ steps.forEach(function(b){ b.classList.add("is-on"); }); }
+  if (reduce || !steps.length) {
+    showAll();
+  } else {
+    var i = 0;
+    (function next(){
+      if (i >= steps.length) { return; }
+      var b = steps[i];
+      if (b.classList.contains("bubble--typing")) {
+        b.classList.add("is-on");
+        setTimeout(function(){ b.classList.remove("is-on"); i++; next(); }, 1500);
+      } else {
+        b.classList.add("is-on");
+        i++;
+        setTimeout(next, 900);
+      }
+    })();
+  }
+
+  /* ---------- phone taps open WhatsApp ---------- */
+  var phone = document.getElementById("phone");
+  if (phone) {
+    var go = function(){ window.open(phone.dataset.wa, "_blank", "noopener"); };
+    phone.addEventListener("click", go);
+    phone.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
+    });
+  }
+
+  /* ---------- per-item Book links ---------- */
+  var books = document.querySelectorAll(".mrow__book");
+  books.forEach(function(a){
+    var s = a.dataset.service || "";
+    a.href = WA + "?text=" + encodeURIComponent("Assalam o Alaikum, I want to book " + s + " at Muskan Famous Saloon.");
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.setAttribute("aria-label", "Book " + s + " on WhatsApp");
+  });
+
+  /* ---------- booking form ---------- */
+  var form = document.getElementById("bookForm");
+  if (form) {
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var ok = true;
+      ["name","service","day","time"].forEach(function(id){
+        var el = document.getElementById(id);
+        var field = el.closest(".field");
+        if (!el.value.trim()) { field.classList.add("invalid"); ok = false; }
+        else { field.classList.remove("invalid"); }
+      });
+      if (!ok) {
+        var firstBad = form.querySelector(".field.invalid input, .field.invalid select");
+        if (firstBad) { firstBad.focus(); }
+        return;
+      }
+      var name = document.getElementById("name").value.trim();
+      var service = document.getElementById("service").value.trim();
+      var day = document.getElementById("day").value.trim();
+      var time = document.getElementById("time").value.trim();
+      var notes = document.getElementById("notes").value.trim();
+
+      var msg = "Assalam o Alaikum, I would like to book at Muskan Famous Saloon.\n"
+        + "Name: " + name + "\n"
+        + "Service: " + service + "\n"
+        + "Preferred day: " + day + "\n"
+        + "Preferred time: " + time;
+      if (notes) { msg += "\nNotes: " + notes; }
+
+      window.open(WA + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+    });
+
+    form.addEventListener("input", function(e){
+      var field = e.target.closest(".field");
+      if (field && e.target.value.trim()) { field.classList.remove("invalid"); }
+    });
+  }
+})();
+</script>
+</body>
+</html>
